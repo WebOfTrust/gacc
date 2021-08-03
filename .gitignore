@@ -1,0 +1,15 @@
+# Dependency directories
+node_modules/
+__pycache__/
+# build folders
+build/
+
+# dotenv environment variables file
+.env
+
+# log files
+*.log
+
+.idea
+
+venv
