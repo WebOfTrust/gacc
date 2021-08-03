@@ -6,7 +6,7 @@ let Verify = require('./views/Verify')
 let root = document.body;
 
 let Layout = {
-    view: function (vnode) {
+    view: vnode => {
         return m("main.layout", [
             m("div", {"class": "w3-container w3-teal"}, [
                 m("h1", "GACC"),
@@ -36,12 +36,12 @@ let Layout = {
 
 m.route(root, "/issue", {
     "/issue": {
-        render: function (vnode) {
+        render: vnode => {
             return m(Layout, m(Issue, vnode.attrs))
         }
     },
     "/verify": {
-        render: function (vnode) {
+        render: vnode => {
             return m(Layout, m(Verify, vnode.attrs))
         }
     },

@@ -12,4 +12,4 @@ let Recipient = {
     }
 }
 
-module.exports = Recipient
+module.exports = Recipient;

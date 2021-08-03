@@ -22,14 +22,17 @@ let QualifiedvLEIIssuervLEICredential = {
                             m("button", {
                                 "class": "w3-btn w3-blue-grey w3-margin-top w3-margin-bottom",
                                 onclick: function () {
+                                    // noinspection JSUnresolvedVariable
                                     m.request({
                                         "method": "POST",
-                                        "url": "http://localhost:8000/issue/credential",
+                                        "url": GACC_SERVER_URL + "/issue/credential",
                                         "body": {
                                             "LEI": "254900OPPU84GM83MG36",
                                             "schema": "E9bX8Do0nb1Eq986HvoJ2iNO00TjC6J_2En8Du9L-hYU",
                                             "type": "QualifiedvLEIIssuervLEICredential"
                                         },
+                                    }).catch(e => {
+                                        console.log(e)
                                     })
                                 }
                             }, "Issue")
@@ -41,4 +44,4 @@ let QualifiedvLEIIssuervLEICredential = {
     }
 };
 
-module.exports = QualifiedvLEIIssuervLEICredential
+module.exports = QualifiedvLEIIssuervLEICredential;

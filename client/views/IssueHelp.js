@@ -28,4 +28,4 @@ let IssueHelps = {
     }
 };
 
-module.exports = IssueHelps
+module.exports = IssueHelps;

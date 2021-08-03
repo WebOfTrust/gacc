@@ -52,4 +52,4 @@ let Issue = {
     }
 };
 
-module.exports = Issue
+module.exports = Issue;

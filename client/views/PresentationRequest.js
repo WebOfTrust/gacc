@@ -1,6 +1,7 @@
 let m = require("mithril");
 
 let Recipient = require('./Recipient')
+let schema = "";
 
 let PresentationRequest = {
     view: function () {
@@ -15,7 +16,12 @@ let PresentationRequest = {
                             m(Recipient),
                             m("div", {"class": "w3-container w3-margin-bottom"}, [
                                 m("label", "Schema"),
-                                m("select", {"class": "w3-select", "name": "option"},
+                                m("select", {
+                                        "class": "w3-select", "name": "option",
+                                        onchange: e => {
+                                            schema = e.target.value
+                                        }
+                                    },
                                     [
                                         m("option", {"value": "", "disabled": "disabled", "selected": "selected"},
                                             "Choose your option"
@@ -41,12 +47,27 @@ let PresentationRequest = {
                                 m("button", {
                                     "class": "w3-btn w3-blue-grey w3-margin-bottom",
                                     onclick: function () {
+                                        // noinspection JSUnresolvedVariable
                                         m.request({
                                             "method": "POST",
-                                            "url": "http://localhost:8000/issue/credential",
+                                            "url": GACC_SERVER_URL + "/presentation/request",
                                             "body": {
-                                                "LEI": "506700GE1G29325QX363"
+                                                "schema": schema
                                             },
+                                        }).then(resp => {
+                                            console.log(resp)
+                                            // noinspection JSUnresolvedVariable
+                                            // m.request({
+                                            //     "method": "POST",
+                                            //     "url": CONTROLLER_URL + "/exn/cmd/presentation/request",
+                                            //     "body": {
+                                            //         "LEI": "506700GE1G29325QX363"
+                                            //     },
+                                            // }).catch(e => {
+                                            //                                         console.log(e)
+                                            //                                     })
+                                        }).catch(e => {
+                                            console.log(e)
                                         })
                                     }
                                 }, "Request")
@@ -59,4 +80,4 @@ let PresentationRequest = {
     }
 };
 
-module.exports = PresentationRequest
+module.exports = PresentationRequest;

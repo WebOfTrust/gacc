@@ -21,14 +21,31 @@ let GLEIFvLEICredential = {
                             m("button", {
                                 "class": "w3-btn w3-blue-grey w3-margin-top w3-margin-bottom",
                                 onclick: function () {
+                                    // noinspection JSUnresolvedVariable
                                     m.request({
                                         "method": "POST",
-                                        "url": "http://localhost:8000/issue/credential",
+                                        "url": GACC_SERVER_URL + "/issue/credential",
                                         "body": {
                                             "LEI": "506700GE1G29325QX363",
                                             "schema": "E7brwlefuH-F_KU_FPWAZR78A3pmSVDlnfJUqnm8Lhr4",
                                             "type": "GLEIFvLEICredential"
                                         },
+                                    }).then(res => {
+                                        // noinspection JSUnresolvedVariable
+                                        m.request({
+                                            "method": "POST",
+                                            "url": CONTROLLER_URL + "/exn/cmd/credential/issue",
+                                            "headers": {
+                                                "CESR-DATE": res['date'],
+                                                "CESR-ATTACHMENT": res['attachment'],
+                                                "Content-Type": "application/cesr+json"
+                                            },
+                                            "body": JSON.parse(res['d'])
+                                        }).catch(e => {
+                                            console.log(e)
+                                        })
+                                    }).catch(e => {
+                                        console.log(e)
                                     })
                                 }
                             }, "Issue")
@@ -40,4 +57,4 @@ let GLEIFvLEICredential = {
     }
 };
 
-module.exports = GLEIFvLEICredential
+module.exports = GLEIFvLEICredential;

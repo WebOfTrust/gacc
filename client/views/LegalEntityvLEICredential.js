@@ -15,15 +15,11 @@ let LegalEntityvLEICredential = {
                 [
                     m("form", {"class": "w3-container w3-margin-top"},
                         [m("p"),
-                            // m("label", {"class": "w3-text-dark-grey"}, "QualifiedvLEIIssuervLEICredential"),
-                            // m("div", {
-                            //     "class": "w3-text-dark-grey w3-margin-bottom",
-                            // }, "254900OPPU84GM83MG36"),
                             m("label", "Legal Entity Identifier"),
                             m("input", {
                                 "class": "w3-input w3-border w3-light-grey",
                                 "type": "text",
-                                oninput: function (e) {
+                                oninput: e => {
                                     lei = e.target.value
                                 },
                                 value: lei
@@ -32,14 +28,17 @@ let LegalEntityvLEICredential = {
                             m("button", {
                                 "class": "w3-btn w3-blue-grey w3-margin-top w3-margin-bottom",
                                 onclick: function () {
+                                    // noinspection JSUnresolvedVariable
                                     m.request({
                                         "method": "POST",
-                                        "url": "http://localhost:8000/issue/credential",
+                                        "url": GACC_SERVER_URL + "/issue/credential",
                                         "body": {
                                             "LEI": lei,
                                             "schema": "E-BRq9StLuC9DxGgiFiy2XND0fFgzyn8cjptlcdvGEFY",
                                             "type": "LegalEntityvLEICredential"
                                         },
+                                    }).catch(e => {
+                                        console.log(e)
                                     })
                                 }
                             }, "Issue")
@@ -51,4 +50,4 @@ let LegalEntityvLEICredential = {
     }
 };
 
-module.exports = LegalEntityvLEICredential
+module.exports = LegalEntityvLEICredential;
