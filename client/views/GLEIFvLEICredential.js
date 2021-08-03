@@ -15,7 +15,7 @@ let GLEIFvLEICredential = {
                         [m("p"),
                             m("label", "Legal Entity Identifier"),
                             m("input[readonly=true][value=506700GE1G29325QX363]", {
-                                "class": "w3-input w3-border w3-light-grey",
+                                "class": "w3-input w3-border w3-light-grey w3-text-blue-grey",
                                 "type": "text"
                             }),
                             m("button", {
@@ -25,7 +25,9 @@ let GLEIFvLEICredential = {
                                         "method": "POST",
                                         "url": "http://localhost:8000/issue/credential",
                                         "body": {
-                                            "LEI": "506700GE1G29325QX363"
+                                            "LEI": "506700GE1G29325QX363",
+                                            "schema": "E7brwlefuH-F_KU_FPWAZR78A3pmSVDlnfJUqnm8Lhr4",
+                                            "type": "GLEIFvLEICredential"
                                         },
                                     })
                                 }

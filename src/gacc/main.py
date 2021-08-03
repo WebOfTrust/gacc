@@ -2,7 +2,7 @@ from wsgiref.simple_server import make_server
 
 import falcon
 
-from gack import handling
+from src.gacc import handling
 
 app = falcon.App(cors_enable=True)
 app.add_route('/issue/credential', handling.IssueCredential())

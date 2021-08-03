@@ -2,7 +2,7 @@ let m = require("mithril");
 
 let QualifiedvLEIIssuervLEICredential = {
     view: function () {
-        return m("main", {"class": "w3-margin w3-card"},  [
+        return m("main", {"class": "w3-margin w3-card"}, [
             m("div", {"class": "w3-container w3-teal"}, [
                 m("h5", "Qualified vLEI Issuer Credential")
             ]),
@@ -15,7 +15,10 @@ let QualifiedvLEIIssuervLEICredential = {
                         [
                             m("p"),
                             m("label", "Legal Entity Identifier"),
-                            m("input", {"class": "w3-input w3-border w3-light-grey", "type": "text"}),
+                            m("input[readonly=true][value='254900OPPU84GM83MG36']", {
+                                "class": "w3-input w3-border w3-light-grey w3-text-blue-grey",
+                                "type": "text"
+                            }),
                             m("button", {
                                 "class": "w3-btn w3-blue-grey w3-margin-top w3-margin-bottom",
                                 onclick: function () {
@@ -23,7 +26,9 @@ let QualifiedvLEIIssuervLEICredential = {
                                         "method": "POST",
                                         "url": "http://localhost:8000/issue/credential",
                                         "body": {
-                                            "LEI": "506700GE1G29325QX363"
+                                            "LEI": "254900OPPU84GM83MG36",
+                                            "schema": "E9bX8Do0nb1Eq986HvoJ2iNO00TjC6J_2En8Du9L-hYU",
+                                            "type": "QualifiedvLEIIssuervLEICredential"
                                         },
                                     })
                                 }

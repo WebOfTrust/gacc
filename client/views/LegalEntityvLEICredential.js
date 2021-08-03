@@ -1,6 +1,8 @@
 let m = require("mithril");
 
-let LegalEntityOfficialOrganizationalRolevLEICredential = {
+let lei = "";
+
+let LegalEntityvLEICredential = {
     view: function () {
         return m("main", {"class": "w3-margin w3-card"}, [
             m("div", {"class": "w3-container w3-teal"}, [
@@ -13,10 +15,19 @@ let LegalEntityOfficialOrganizationalRolevLEICredential = {
                 [
                     m("form", {"class": "w3-container w3-margin-top"},
                         [m("p"),
+                            // m("label", {"class": "w3-text-dark-grey"}, "QualifiedvLEIIssuervLEICredential"),
+                            // m("div", {
+                            //     "class": "w3-text-dark-grey w3-margin-bottom",
+                            // }, "254900OPPU84GM83MG36"),
                             m("label", "Legal Entity Identifier"),
                             m("input", {
                                 "class": "w3-input w3-border w3-light-grey",
-                                "type": "text"
+                                "type": "text",
+                                oninput: function (e) {
+                                    lei = e.target.value
+                                },
+                                value: lei
+
                             }),
                             m("button", {
                                 "class": "w3-btn w3-blue-grey w3-margin-top w3-margin-bottom",
@@ -25,7 +36,9 @@ let LegalEntityOfficialOrganizationalRolevLEICredential = {
                                         "method": "POST",
                                         "url": "http://localhost:8000/issue/credential",
                                         "body": {
-                                            "LEI": "506700GE1G29325QX363"
+                                            "LEI": lei,
+                                            "schema": "E-BRq9StLuC9DxGgiFiy2XND0fFgzyn8cjptlcdvGEFY",
+                                            "type": "LegalEntityvLEICredential"
                                         },
                                     })
                                 }
@@ -38,4 +51,4 @@ let LegalEntityOfficialOrganizationalRolevLEICredential = {
     }
 };
 
-module.exports = LegalEntityOfficialOrganizationalRolevLEICredential
+module.exports = LegalEntityvLEICredential

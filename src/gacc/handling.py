@@ -1,13 +1,9 @@
-import json
-
 import falcon
-import requests
 from keri.app import keeping, habbing
 from keri.core import scheming, coring
 from keri.core.coring import Serder
 from keri.db import basing
 from keri.peer import exchanging
-from keri.peer.httping import CESR_CONTENT_TYPE
 from keri.vc import proving
 
 
@@ -21,19 +17,30 @@ class IssueCredential:
             hab = habbing.Habitat(name=name, ks=ks, db=db, temp=False, create=False)
 
             schema = req.media.get("schema")
-            source = None
+            source = req.media.get("source")
+            print(source)
+
+            types = ["VerifiableCredential", req.media.get("type")]
 
             d = dict(
                 i="",
-                type=["VerifiableCredential",
-                      "GLEIFvLEICredential"],
+                type=types,
                 LEI=req.media.get("LEI")
             )
+
+            d |= {"personLegalName": req.media.get("personLegalName")} \
+                if req.media.get("personLegalName") is not None else {}
+            d |= {"officialRole": req.media.get("officialRole")} \
+                if req.media.get("officialRole") is not None else {}
+            d |= {"engagementContextRole": req.media.get("engagementContextRole")} \
+                if req.media.get("engagementContextRole") is not None else {}
+
+            print(d)
 
             saider = scheming.Saider(sed=d, code=coring.MtrDex.Blake3_256, idder=scheming.Ids.i)
             d["i"] = saider.qb64
 
-            cred = proving.credential(schema="E7brwlefuH-F_KU_FPWAZR78A3pmSVDlnfJUqnm8Lhr4",
+            cred = proving.credential(schema=schema,
                                       issuer="EYNHFK056fqNSG_MDE7d_Eqk0bazefvd4eeQLMPPNBnM",
                                       subject=d,
                                       source=source)
@@ -43,7 +50,7 @@ class IssueCredential:
             issuepayload = dict(
                 recipient="EhYpYZSUAtiEurF7XngDB2mII2khY9ktlfqKHd1NHfNY",
                 data=d,
-                schema="E7brwlefuH-F_KU_FPWAZR78A3pmSVDlnfJUqnm8Lhr4"
+                schema="schema"
             )
 
             serder = exchanging.exchange(route="/cmd/credential/issue", payload=issuepayload)
@@ -53,12 +60,14 @@ class IssueCredential:
             date = serder.ked['dt']
             attachment = msg[ser.size:].decode("utf-8")
 
-            requests.post("http://localhost:5623/exn/cmd/credential/issue", data=json.dumps(serder.ked['q']),
-                          headers={
-                              "CESR-DATE": date,
-                              "CESR-ATTACHMENT": attachment,
-                              "Content-Type": CESR_CONTENT_TYPE
-                          })
+            print(date, attachment)
+
+            # requests.post("http://localhost:5623/exn/cmd/credential/issue", data=json.dumps(serder.ked['d']),
+            #               headers={
+            #                   "CESR-DATE": date,
+            #                   "CESR-ATTACHMENT": attachment,
+            #                   "Content-Type": CESR_CONTENT_TYPE
+            #               })
             resp.status = falcon.HTTP_202
 
 
