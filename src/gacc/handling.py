@@ -1,13 +1,11 @@
 import json
 
 import falcon
-import requests
 from keri.app import keeping, habbing
 from keri.core import scheming, coring
 from keri.core.coring import Serder
 from keri.db import basing
-from keri.help import helping
-from keri.peer import exchanging, httping
+from keri.peer import exchanging
 from keri.vc import proving
 
 
@@ -49,10 +47,11 @@ class IssueCredential:
             print(cred.pretty())
 
             serder = exchanging.exchange(route="/cmd/credential/issue", payload=dict(
-                recipient="EhYpYZSUAtiEurF7XngDB2mII2khY9ktlfqKHd1NHfNY",
+                recipient="Ek6aFvTrjmLzpIlyi3c38jZ2ZwAdB2ZvEen3ZqHhT_Kk",
                 data=d,
                 schema=schema
             ))
+
             msg = hab.sanction(serder=serder)
             ser = Serder(raw=msg)
 
@@ -75,7 +74,7 @@ class PresentationRequest:
             hab = habbing.Habitat(name=name, ks=ks, db=db, temp=False, create=False)
 
         pl = dict(
-            recipient="EhYpYZSUAtiEurF7XngDB2mII2khY9ktlfqKHd1NHfNY",
+            recipient="Ek6aFvTrjmLzpIlyi3c38jZ2ZwAdB2ZvEen3ZqHhT_Kk",
             data=dict(
                 input_descriptors=[
                     dict(x="Ek6vA-fVXDRbraVi7a9ydKStHiByUoF37Cgz4L58LWds")
