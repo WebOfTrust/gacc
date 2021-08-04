@@ -47,7 +47,7 @@ class IssueCredential:
             print(cred.pretty())
 
             serder = exchanging.exchange(route="/cmd/credential/issue", payload=dict(
-                recipient="Ek6aFvTrjmLzpIlyi3c38jZ2ZwAdB2ZvEen3ZqHhT_Kk",
+                recipient="EpXprWFWmvJx4dP7CqDyXRgoigTVFwEUh6i-6jUCcoU8",
                 data=d,
                 schema=schema
             ))
@@ -74,7 +74,7 @@ class PresentationRequest:
             hab = habbing.Habitat(name=name, ks=ks, db=db, temp=False, create=False)
 
         pl = dict(
-            recipient="Ek6aFvTrjmLzpIlyi3c38jZ2ZwAdB2ZvEen3ZqHhT_Kk",
+            recipient="EpXprWFWmvJx4dP7CqDyXRgoigTVFwEUh6i-6jUCcoU8",
             data=dict(
                 input_descriptors=[
                     dict(x="Ek6vA-fVXDRbraVi7a9ydKStHiByUoF37Cgz4L58LWds")
