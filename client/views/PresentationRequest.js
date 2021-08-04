@@ -1,7 +1,7 @@
 let m = require("mithril");
 
 let Recipient = require('./Recipient')
-let val = "";
+let val = "E7brwlefuH-F_KU_FPWAZR78A3pmSVDlnfJUqnm8Lhr4";
 
 let PresentationRequest = {
     view: function () {
@@ -20,6 +20,8 @@ let PresentationRequest = {
                                         "class": "w3-select", "name": "option",
                                         onchange: e => {
                                             val = e.target.value
+                                            console.log("chnage")
+                                            console.log(e.target.value)
                                         }
                                     },
                                     [
@@ -44,6 +46,8 @@ let PresentationRequest = {
                                 m("button", {
                                     "class": "w3-btn w3-blue-grey w3-margin-bottom",
                                     onclick: function () {
+                                        console.log("hi")
+                                        console.log(val)
                                         // noinspection JSUnresolvedVariable
                                         m.request({
                                             "method": "POST",
