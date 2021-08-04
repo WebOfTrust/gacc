@@ -20,8 +20,6 @@ let PresentationRequest = {
                                         "class": "w3-select", "name": "option",
                                         onchange: e => {
                                             val = e.target.value
-                                            console.log("chnage")
-                                            console.log(e.target.value)
                                         }
                                     },
                                     [
