@@ -4,28 +4,14 @@ let msgs = [];
 let source;
 
 let Mailbox = {
-    oninit: function () {
-        // noinspection JSUnresolvedVariable
-        source = new EventSource(GACC_MAILBOX_URL);
-    },
     displayData: e => {
         msgs.push("new event " + e)
         m.redraw()
     },
     oncreate: function () {
-        if (source.readyState === 0) {
-            source.addEventListener('data', this.displayData, false);
-        }
-
         // noinspection JSUnresolvedVariable
-        // m.request({
-        //     "method": "POST",
-        //     "url": GACC_SERVER_URL + "/mailbox/request",
-        // }).then(resp => {
-        //     console.log(resp)
-        // }).catch(e => {
-        //     console.log(e)
-        // })
+        source = new EventSource(CONTROLLER_URL + "/req/mbx?s=0&i=E4Zq5dxbnWKq5K-Bssn4g_qhBbSwNSI2MH4QYnkEUFDM");
+        source.addEventListener('data', this.displayData, false);
     },
     view: function () {
         return m("main", {"class": "w3-margin w3-card"}, [

@@ -5,6 +5,7 @@ from keri.app import keeping, habbing
 from keri.core import scheming, coring
 from keri.core.coring import Serder
 from keri.db import basing
+from keri.help import helping
 from keri.peer import exchanging
 from keri.vc import proving
 
@@ -87,7 +88,7 @@ class PresentationRequest:
             resp.media = {
                 "data": json.dumps(ser.ked['d']),
                 "date": excSrdr.ked['dt'],
-                "attachment":  msg[ser.size:].decode("utf-8"),
+                "attachment": msg[ser.size:].decode("utf-8"),
             }
 
 
@@ -95,20 +96,18 @@ class MailboxRequest:
     @staticmethod
     def on_post(req, resp):
         name = "controller"
-        # with basing.openDB(name=name, temp=False) as db, \
-        #         keeping.openKS(name=name, temp=False) as ks:
-        #     hab = habbing.Habitat(name=name, ks=ks, db=db, temp=False, create=False)
-        #
-        #     msg = hab.query(pre=hab.pre, res="/mbx", sn=0)
-        #
-        #     ser = coring.Serder(raw=msg)
-        #
-        #     date = helping.nowIso8601()
-        #     attachment = msg[ser.size:].decode("utf-8")
-        #     response = requests.post("http://localhost:5623/req/mbx", data=json.dumps(ser.ked), headers={
-        #         "CESR-DATE": date,
-        #         "CESR-ATTACHMENT": attachment,
-        #         "Content-Type": httping.CESR_CONTENT_TYPE
-        #     })
-        #     print(response)
-        #     print(response.text)
+        with basing.openDB(name=name, temp=False) as db, \
+                keeping.openKS(name=name, temp=False) as ks:
+            hab = habbing.Habitat(name=name, ks=ks, db=db, temp=False, create=False)
+
+            msg = hab.query(pre=hab.pre, res="/mbx", sn=0)
+            ser = coring.Serder(raw=msg)
+            msg = hab.sanction(serder=ser)
+            print(json.dumps(ser.ked))
+
+            resp.status = falcon.HTTP_200
+            resp.media = {
+                "data": json.dumps(ser.ked),
+                "date": helping.nowIso8601(),
+                "attachment": msg[ser.size:].decode("utf-8"),
+            }
