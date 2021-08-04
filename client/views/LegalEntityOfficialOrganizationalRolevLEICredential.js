@@ -54,7 +54,7 @@ let LegalEntityOfficialOrganizationalRolevLEICredential = {
                                         "body": {
                                             "LEI": lei,
                                             "personLegalName": personLegalName,
-                                            "officialROle": officialRole,
+                                            "officialRole": officialRole,
                                             "schema": "EUZ_F1do5sG78zeeA_8CChT5utRpOXQK4GYnv0WGRfuU",
                                             "type": "LegalEntityOfficialOrganizationalRolevLEICredential",
                                         },
