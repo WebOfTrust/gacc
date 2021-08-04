@@ -74,21 +74,24 @@ class PresentationRequest:
                 keeping.openKS(name=name, temp=False) as ks:
             hab = habbing.Habitat(name=name, ks=ks, db=db, temp=False, create=False)
 
+            ref = scheming.jsonSchemaCache.resolve("E7brwlefuH-F_KU_FPWAZR78A3pmSVDlnfJUqnm8Lhr4")
+            schemer = scheming.Schemer(raw=ref)
+
             pl = dict(
-                recipient="EpXprWFWmvJx4dP7CqDyXRgoigTVFwEUh6i-6jUCcoU8",
-                schema=req.media.get("schema")
+                schema=schemer.said,
+                recipient="EpXprWFWmvJx4dP7CqDyXRgoigTVFwEUh6i-6jUCcoU8"
             )
 
             excSrdr = exchanging.exchange(route="/cmd/presentation/request", payload=pl)
-            msg = hab.sanction(serder=excSrdr)
+            excMsg = hab.sanction(excSrdr)
 
-            ser = Serder(raw=msg)
+            ser = coring.Serder(raw=excMsg)
 
             resp.status = falcon.HTTP_200
             resp.media = {
                 "data": json.dumps(ser.ked['d']),
                 "date": excSrdr.ked['dt'],
-                "attachment": msg[ser.size:].decode("utf-8"),
+                "attachment":  excMsg[ser.size:].decode("utf-8"),
             }
 
 
