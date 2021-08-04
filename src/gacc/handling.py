@@ -69,31 +69,26 @@ class PresentationRequest:
     def on_post(req, resp):
         name = "controller"
 
-        with basing.openDB(name=name, temp=False, reload=True) as db, \
+        with basing.openDB(name=name, temp=False) as db, \
                 keeping.openKS(name=name, temp=False) as ks:
             hab = habbing.Habitat(name=name, ks=ks, db=db, temp=False, create=False)
 
-        pl = dict(
-            recipient="EpXprWFWmvJx4dP7CqDyXRgoigTVFwEUh6i-6jUCcoU8",
-            data=dict(
-                input_descriptors=[
-                    dict(x="Ek6vA-fVXDRbraVi7a9ydKStHiByUoF37Cgz4L58LWds")
-                ]
-            ),
-            schema=req.media.get("schema")
-        )
+            pl = dict(
+                recipient="EpXprWFWmvJx4dP7CqDyXRgoigTVFwEUh6i-6jUCcoU8",
+                schema=req.media.get("schema")
+            )
 
-        serder = exchanging.exchange(route="/cmd/presentation/request", payload=pl)
-        # noinspection DuplicatedCode
-        msg = hab.sanction(serder=serder)
-        ser = Serder(raw=msg)
+            excSrdr = exchanging.exchange(route="/cmd/presentation/request", payload=pl)
+            msg = hab.sanction(serder=excSrdr)
 
-        resp.status = falcon.HTTP_200
-        resp.media = {
-            "data": json.dumps(serder.ked['d']),
-            "date": serder.ked['dt'],
-            "attachment": msg[ser.size:].decode("utf-8"),
-        }
+            ser = Serder(raw=msg)
+
+            resp.status = falcon.HTTP_200
+            resp.media = {
+                "data": json.dumps(ser.ked['d']),
+                "date": excSrdr.ked['dt'],
+                "attachment":  msg[ser.size:].decode("utf-8"),
+            }
 
 
 class MailboxRequest:
