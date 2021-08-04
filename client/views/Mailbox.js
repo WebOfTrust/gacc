@@ -13,17 +13,19 @@ let Mailbox = {
         m.redraw()
     },
     oncreate: function () {
-        source.addEventListener('data', this.displayData, false);
+        if (source.readyState === 0) {
+            source.addEventListener('data', this.displayData, false);
+        }
 
         // noinspection JSUnresolvedVariable
-        m.request({
-            "method": "POST",
-            "url": GACC_SERVER_URL + "/mailbox/request",
-        }).then(resp => {
-            console.log(resp)
-        }).catch(e => {
-            console.log(e)
-        })
+        // m.request({
+        //     "method": "POST",
+        //     "url": GACC_SERVER_URL + "/mailbox/request",
+        // }).then(resp => {
+        //     console.log(resp)
+        // }).catch(e => {
+        //     console.log(e)
+        // })
     },
     view: function () {
         return m("main", {"class": "w3-margin w3-card"}, [

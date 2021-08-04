@@ -1,7 +1,7 @@
 let m = require("mithril");
 
 let Recipient = require('./Recipient')
-let schema = "";
+let val = "";
 
 let PresentationRequest = {
     view: function () {
@@ -19,13 +19,10 @@ let PresentationRequest = {
                                 m("select", {
                                         "class": "w3-select", "name": "option",
                                         onchange: e => {
-                                            schema = e.target.value
+                                            val = e.target.value
                                         }
                                     },
                                     [
-                                        m("option", {"value": "", "disabled": "disabled", "selected": "selected"},
-                                            "Choose your option"
-                                        ),
                                         m("option", {"value": "E7brwlefuH-F_KU_FPWAZR78A3pmSVDlnfJUqnm8Lhr4"},
                                             "GLEIF vLEI Credential"
                                         ),
@@ -52,7 +49,7 @@ let PresentationRequest = {
                                             "method": "POST",
                                             "url": GACC_SERVER_URL + "/presentation/request",
                                             "body": {
-                                                "schema": schema
+                                                "schema": val
                                             },
                                         }).then(res => {
                                             // noinspection JSUnresolvedVariable
