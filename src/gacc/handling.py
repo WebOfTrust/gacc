@@ -40,7 +40,7 @@ class IssueCredential:
             d["i"] = saider.qb64
 
             cred = proving.credential(schema=schema,
-                                      issuer="EYNHFK056fqNSG_MDE7d_Eqk0bazefvd4eeQLMPPNBnM",
+                                      issuer="EUX0_NKihYcmvuTOSFnLcIf4xhAn0MaAI2FJoCN-gspc",
                                       subject=d,
                                       source=source)
 
@@ -90,7 +90,7 @@ class PresentationRequest:
 
         resp.status = falcon.HTTP_200
         resp.media = {
-            "d": json.dumps(serder.ked['d']),
+            "data": json.dumps(serder.ked['d']),
             "date": serder.ked['dt'],
             "attachment": msg[ser.size:].decode("utf-8"),
         }

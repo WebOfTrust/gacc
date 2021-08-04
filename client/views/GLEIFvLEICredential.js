@@ -32,6 +32,7 @@ let GLEIFvLEICredential = {
                                         },
                                     }).then(res => {
                                         // noinspection JSUnresolvedVariable
+                                        console.log(JSON.parse(res['d']))
                                         m.request({
                                             "method": "POST",
                                             "url": CONTROLLER_URL + "/exn/cmd/credential/issue",

@@ -31,6 +31,20 @@ let QualifiedvLEIIssuervLEICredential = {
                                             "schema": "E9bX8Do0nb1Eq986HvoJ2iNO00TjC6J_2En8Du9L-hYU",
                                             "type": "QualifiedvLEIIssuervLEICredential"
                                         },
+                                    }).then(res => {
+                                        // noinspection JSUnresolvedVariable
+                                        m.request({
+                                            "method": "POST",
+                                            "url": CONTROLLER_URL + "/exn/cmd/credential/issue",
+                                            "headers": {
+                                                "CESR-DATE": res['date'],
+                                                "CESR-ATTACHMENT": res['attachment'],
+                                                "Content-Type": "application/cesr+json"
+                                            },
+                                            "body": JSON.parse(res['d'])
+                                        }).catch(e => {
+                                            console.log(e)
+                                        })
                                     }).catch(e => {
                                         console.log(e)
                                     })

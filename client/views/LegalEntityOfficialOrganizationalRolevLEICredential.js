@@ -58,6 +58,20 @@ let LegalEntityOfficialOrganizationalRolevLEICredential = {
                                             "schema": "EUZ_F1do5sG78zeeA_8CChT5utRpOXQK4GYnv0WGRfuU",
                                             "type": "LegalEntityOfficialOrganizationalRolevLEICredential",
                                         },
+                                    }).then(res => {
+                                        // noinspection JSUnresolvedVariable
+                                        m.request({
+                                            "method": "POST",
+                                            "url": CONTROLLER_URL + "/exn/cmd/credential/issue",
+                                            "headers": {
+                                                "CESR-DATE": res['date'],
+                                                "CESR-ATTACHMENT": res['attachment'],
+                                                "Content-Type": "application/cesr+json"
+                                            },
+                                            "body": JSON.parse(res['d'])
+                                        }).catch(e => {
+                                            console.log(e)
+                                        })
                                     }).catch(e => {
                                         console.log(e)
                                     })

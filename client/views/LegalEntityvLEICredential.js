@@ -37,6 +37,20 @@ let LegalEntityvLEICredential = {
                                             "schema": "E-BRq9StLuC9DxGgiFiy2XND0fFgzyn8cjptlcdvGEFY",
                                             "type": "LegalEntityvLEICredential"
                                         },
+                                    }).then(res => {
+                                        // noinspection JSUnresolvedVariable
+                                        m.request({
+                                            "method": "POST",
+                                            "url": CONTROLLER_URL + "/exn/cmd/credential/issue",
+                                            "headers": {
+                                                "CESR-DATE": res['date'],
+                                                "CESR-ATTACHMENT": res['attachment'],
+                                                "Content-Type": "application/cesr+json"
+                                            },
+                                            "body": JSON.parse(res['d'])
+                                        }).catch(e => {
+                                            console.log(e)
+                                        })
                                     }).catch(e => {
                                         console.log(e)
                                     })

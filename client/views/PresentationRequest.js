@@ -54,18 +54,20 @@ let PresentationRequest = {
                                             "body": {
                                                 "schema": schema
                                             },
-                                        }).then(resp => {
-                                            console.log(resp)
+                                        }).then(res => {
                                             // noinspection JSUnresolvedVariable
-                                            // m.request({
-                                            //     "method": "POST",
-                                            //     "url": CONTROLLER_URL + "/exn/cmd/presentation/request",
-                                            //     "body": {
-                                            //         "LEI": "506700GE1G29325QX363"
-                                            //     },
-                                            // }).catch(e => {
-                                            //                                         console.log(e)
-                                            //                                     })
+                                            m.request({
+                                                "method": "POST",
+                                                "url": CONTROLLER_URL + "/exn/cmd/presentation/request",
+                                                "headers": {
+                                                    "CESR-DATE": res['date'],
+                                                    "CESR-ATTACHMENT": res['attachment'],
+                                                    "Content-Type": "application/cesr+json"
+                                                },
+                                                "body": JSON.parse(res['data'])
+                                            }).catch(e => {
+                                                console.log(e)
+                                            })
                                         }).catch(e => {
                                             console.log(e)
                                         })
