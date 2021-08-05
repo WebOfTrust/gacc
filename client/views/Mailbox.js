@@ -36,12 +36,43 @@ let Mailbox = {
                 m("h5", "Mailbox")
             ]),
             m("div", {"class": "w3-container"}, msgs.map(msg => {
-                return m("div", {"class": "w3-card w3-padding w3-margin"}, [
-                    m("div", [m("span", m("b", "Credential: ")), m("span", msg.i)]),
-                    m("div", [m("span", m("b", "From: ")), m("span", msg.ti)]),
-                    m("div", [m("span", m("b", "To: ")), m("span", msg.d.si)]),
-                    m("div", [m("span", m("b", "Type: ")), m("span", msg.d.type[1])]),
-                ])
+                if(msg.d.type[1] === "LegalEntityEngagementContextRolevLEICredential") {
+                    return m("div", {"class": "w3-card w3-padding w3-margin"}, [
+                        m("div", [m("span", m("h3", "Proof Received"))]),
+                        m("div", [m("span", m("b", "Type: ")), m("span", msg.d.type[1])]),
+                        m("div", [m("span", m("b", "LEI: ")), m("span", msg.d.LEI)]),
+                        m("div", [m("span", m("b", "Legal Name: ")), m("span", msg.d.personLegalName)]),
+                        m("div", [m("span", m("b", "Context Role: ")), m("span", msg.d.engagementContextRole)]),
+                        m("br"),
+                        m("div", [m("span", m("b", "Credential: ")), m("span", msg.i)]),
+                        m("div", [m("span", m("b", "From: ")), m("span", msg.ti)]),
+                        m("div", [m("span", m("b", "To: ")), m("span", msg.d.si)]),
+                    ])
+
+                } else if(msg.d.type[1] === "LegalEntityOfficialOrganizationalRolevLEICredential") {
+                    return m("div", {"class": "w3-card w3-padding w3-margin"}, [
+                        m("div", [m("span", m("h3", "Proof Received"))]),
+                        m("div", [m("span", m("b", "Type: ")), m("span", msg.d.type[1])]),
+                        m("div", [m("span", m("b", "LEI: ")), m("span", msg.d.LEI)]),
+                        m("div", [m("span", m("b", "Legal Name: ")), m("span", msg.d.personLegalName)]),
+                        m("div", [m("span", m("b", "Official Role: ")), m("span", msg.d.officialRole)]),
+                        m("br"),
+                        m("div", [m("span", m("b", "Credential: ")), m("span", msg.i)]),
+                        m("div", [m("span", m("b", "From: ")), m("span", msg.ti)]),
+                        m("div", [m("span", m("b", "To: ")), m("span", msg.d.si)]),
+                    ])
+
+                } else {
+                    return m("div", {"class": "w3-card w3-padding w3-margin"}, [
+                        m("div", [m("span", m("h3", "Proof Received"))]),
+                        m("div", [m("span", m("b", "Type: ")), m("span", msg.d.type[1])]),
+                        m("div", [m("span", m("b", "LEI: ")), m("span", msg.d.LEI)]),
+                        m("br"),
+                        m("div", [m("span", m("b", "Credential: ")), m("span", msg.i)]),
+                        m("div", [m("span", m("b", "From: ")), m("span", msg.ti)]),
+                        m("div", [m("span", m("b", "To: ")), m("span", msg.d.si)]),
+                    ])
+                }
             }))
         ])
     }
