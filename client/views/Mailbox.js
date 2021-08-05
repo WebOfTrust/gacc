@@ -36,8 +36,10 @@ let Mailbox = {
                 m("h5", "Mailbox")
             ]),
             m("div", {"class": "w3-container"}, msgs.map(msg => {
-                return m("div", {"class": "w3-panel w3-padding-bottom"}, [
-                    m("p", "Credential "+  msg.d.type[1] + " ID: " + msg.i + " issued from " + msg.ti + " to "+ msg.d.si)
+                return m("div", {"class": "w3-card w3-padding w3-margin"}, [
+                    m("div", [m("span", m("b", "Proof Request: ")), m("span", msg.i)]),
+                    m("div", [m("span", m("b", "From: ")), m("span", msg.ti)]),
+                    m("div", [m("span", m("b", "Type: ")), m("span", msg.d.type[1])]),
                 ])
             }))
         ])
@@ -48,11 +50,13 @@ let MINSNIFFSIZE = 30;
 
 let sniff = (raw) => {
     let [major, minor, kind, size] = '';
-    if (raw.length < MINSNIFFSIZE) {throw new Error('"Need more bytes."'); }
+    if (raw.length < MINSNIFFSIZE) {
+        throw new Error('"Need more bytes."');
+    }
 
     const versionPattern = Buffer.from(
-      'KERI(?<major>[0-9a-f])(?<minor>[0-9a-f])(?<kind>[A-Z]{4})(?<size>[0-9a-f]{6})_',
-      'binary',
+        'KERI(?<major>[0-9a-f])(?<minor>[0-9a-f])(?<kind>[A-Z]{4})(?<size>[0-9a-f]{6})_',
+        'binary',
     );
     const regex = RegExp(versionPattern);
     const response = regex.exec(raw);

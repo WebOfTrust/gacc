@@ -74,7 +74,7 @@ class PresentationRequest:
                 keeping.openKS(name=name, temp=False) as ks:
             hab = habbing.Habitat(name=name, ks=ks, db=db, temp=False, create=False)
 
-            ref = scheming.jsonSchemaCache.resolve("E7brwlefuH-F_KU_FPWAZR78A3pmSVDlnfJUqnm8Lhr4")
+            ref = scheming.jsonSchemaCache.resolve(req.media.get("schema"))
             schemer = scheming.Schemer(raw=ref)
 
             pl = dict(

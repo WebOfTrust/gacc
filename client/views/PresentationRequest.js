@@ -1,9 +1,12 @@
 let m = require("mithril");
 
 let Recipient = require('./Recipient')
-let val = "E7brwlefuH-F_KU_FPWAZR78A3pmSVDlnfJUqnm8Lhr4";
+let val = "";
 
 let PresentationRequest = {
+    oninit: function () {
+        val = "E7brwlefuH-F_KU_FPWAZR78A3pmSVDlnfJUqnm8Lhr4"
+    },
     view: function () {
         return m("main", {"class": "w3-margin w3-card"}, [
             m("div", {"class": "w3-container w3-teal"}, [
@@ -44,8 +47,6 @@ let PresentationRequest = {
                                 m("button", {
                                     "class": "w3-btn w3-blue-grey w3-margin-bottom",
                                     onclick: function () {
-                                        console.log("hi")
-                                        console.log(val)
                                         // noinspection JSUnresolvedVariable
                                         m.request({
                                             "method": "POST",
