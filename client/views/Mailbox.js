@@ -37,8 +37,9 @@ let Mailbox = {
             ]),
             m("div", {"class": "w3-container"}, msgs.map(msg => {
                 return m("div", {"class": "w3-card w3-padding w3-margin"}, [
-                    m("div", [m("span", m("b", "Proof Request: ")), m("span", msg.i)]),
+                    m("div", [m("span", m("b", "Credential: ")), m("span", msg.i)]),
                     m("div", [m("span", m("b", "From: ")), m("span", msg.ti)]),
+                    m("div", [m("span", m("b", "To: ")), m("span", msg.d.si)]),
                     m("div", [m("span", m("b", "Type: ")), m("span", msg.d.type[1])]),
                 ])
             }))
