@@ -4,6 +4,7 @@ const persist = require("../helpers/local_storage");
 let Credential = {
     view: function (vnode) {
         let cred = JSON.parse(vnode.attrs.cred)
+        console.log(cred)
         return m("div", {"class": "w3-card w3-padding w3-margin"}, [
             m("button", {
                 "class": "w3-button w3-right w3-red",
@@ -12,11 +13,9 @@ let Credential = {
                     m.request({
                         "method": "POST",
                         "url": GACC_SERVER_URL + "/revoke/credential",
-                        "body": {
-                            "id": cred["data"]["i"],
-                        },
+                        "body": {"said": cred["d"]["data"]["i"]}
                     }).then(res => {
-                        persist.removeCredential(cred["data"]["i"])
+                        persist.removeCredential(cred["pre"])
                         // noinspection JSUnresolvedVariable
                         m.request({
                             "method": "POST",
@@ -26,7 +25,7 @@ let Credential = {
                                 "CESR-ATTACHMENT": res['attachment'],
                                 "Content-Type": "application/cesr+json"
                             },
-                            "body": JSON.parse(res['d'])
+                            "body": res['d']
                         }).catch(e => {
                             console.log(e);
                         })
@@ -35,11 +34,11 @@ let Credential = {
                     })
                 }
             }, "Revoke"),
-            m("div", [m("span", m("b", "To: ")), m("span", cred["recipient"])]),
-            m("div", [m("span", m("b", "Credential: ")), m("span", cred["data"]["i"])]),
+            m("div", [m("span", m("b", "To: ")), m("span", cred["d"]["recipient"])]),
+            m("div", [m("span", m("b", "Credential: ")), m("span", cred["d"]["data"]["i"])]),
             m("br"),
-            m("div", [m("span", m("b", "LEI: ")), m("span", cred["data"]["LEI"])]),
-            m("div", [m("span", m("b", "Type: ")), m("span", cred["data"]["type"][1])]),
+            m("div", [m("span", m("b", "LEI: ")), m("span", cred["d"]["data"]["LEI"])]),
+            m("div", [m("span", m("b", "Type: ")), m("span", cred["d"]["data"]["type"][1])]),
         ])
     }
 }

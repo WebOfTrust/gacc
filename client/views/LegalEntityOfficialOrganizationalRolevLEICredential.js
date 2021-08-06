@@ -73,7 +73,7 @@ let LegalEntityOfficialOrganizationalRolevLEICredential = {
                                         }).catch(e => {
                                             console.log(e)
                                         })
-                                        persist.addCredential(JSON.parse(res['d'])["data"]["i"], res['d'])
+                                        persist.addCredential(JSON.parse(res['d'])["data"]["i"], res)
                                     }).catch(e => {
                                         console.log(e)
                                     })

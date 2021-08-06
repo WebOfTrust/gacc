@@ -58,7 +58,8 @@ class IssueCredential:
 
             resp.status = falcon.HTTP_200
             resp.media = {
-                "d": json.dumps(serder.ked['d']),
+                "pre": cred.said,
+                "d": serder.ked['d'],
                 "date": serder.ked['dt'],
                 "attachment": msg[ser.size:].decode("utf-8"),
             }
@@ -73,20 +74,23 @@ class RevokeCredential:
                 keeping.openKS(name=name, temp=False) as ks:
             hab = habbing.Habitat(name=name, ks=ks, db=db, temp=False, create=False)
 
-        serder = exchanging.exchange(route="/cmd/credential/revoke", payload=dict(
-            said=req.media.get("id"),
-            regk="ETQoH02zJRCTNz-Wl3nnkUD_RVSzSwcoNvmfa18AWt3M",
-        ))
+            print(req.media)
+            print(req.media.get("said"))
 
-        msg = hab.sanction(serder=serder)
-        ser = Serder(raw=msg)
+            serder = exchanging.exchange(route="/cmd/credential/revoke", payload=dict(
+                said=req.media.get("said"),
+                regk="ETQoH02zJRCTNz-Wl3nnkUD_RVSzSwcoNvmfa18AWt3M",
+            ))
 
-        resp.status = falcon.HTTP_200
-        resp.media = {
-            "d": json.dumps(serder.ked['d']),
-            "date": serder.ked['dt'],
-            "attachment": msg[ser.size:].decode("utf-8"),
-        }
+            msg = hab.sanction(serder=serder)
+            ser = Serder(raw=msg)
+
+            resp.status = falcon.HTTP_200
+            resp.media = {
+                "d": serder.ked['d'],
+                "date": serder.ked['dt'],
+                "attachment": msg[ser.size:].decode("utf-8"),
+            }
 
 
 class PresentationRequest:
