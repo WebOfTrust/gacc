@@ -1,4 +1,5 @@
 let m = require("mithril");
+const persist = require("../helpers/local_storage");
 
 let QualifiedvLEIIssuervLEICredential = {
     view: function () {
@@ -45,6 +46,7 @@ let QualifiedvLEIIssuervLEICredential = {
                                         }).catch(e => {
                                             console.log(e)
                                         })
+                                        persist.addCredential(JSON.parse(res['d'])["data"]["i"], res['d'])
                                     }).catch(e => {
                                         console.log(e)
                                     })

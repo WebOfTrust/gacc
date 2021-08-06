@@ -1,4 +1,5 @@
 let m = require("mithril");
+const persist = require("../helpers/local_storage")
 
 let GLEIFvLEICredential = {
     view: function () {
@@ -32,7 +33,6 @@ let GLEIFvLEICredential = {
                                         },
                                     }).then(res => {
                                         // noinspection JSUnresolvedVariable
-                                        console.log(JSON.parse(res['d']))
                                         m.request({
                                             "method": "POST",
                                             "url": CONTROLLER_URL + "/exn/cmd/credential/issue",
@@ -43,8 +43,9 @@ let GLEIFvLEICredential = {
                                             },
                                             "body": JSON.parse(res['d'])
                                         }).catch(e => {
-                                            console.log(e)
+                                            console.log(e);
                                         })
+                                        persist.addCredential(JSON.parse(res['d'])["data"]["i"], res['d'])
                                     }).catch(e => {
                                         console.log(e)
                                     })

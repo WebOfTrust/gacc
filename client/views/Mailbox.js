@@ -9,16 +9,10 @@ let Mailbox = {
 
         let evt = e.data.slice(0, size)
         let ked = JSON.parse(evt)
-
         let d = ked["d"]
-        let pre = d["pre"]
 
-        let vc = d["vc"]
-
-        let theRealVC = vc["vc"]
-
-        console.log(theRealVC)
-        msgs.unshift(theRealVC)
+        console.log(d["vc"]["vc"])
+        msgs.unshift(d["vc"]["vc"])
         m.redraw()
     },
     oncreate: function () {

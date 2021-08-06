@@ -1,4 +1,5 @@
 let m = require("mithril");
+const persist = require("../helpers/local_storage");
 
 let personLegalName = "";
 let officialRole = "";
@@ -72,6 +73,7 @@ let LegalEntityOfficialOrganizationalRolevLEICredential = {
                                         }).catch(e => {
                                             console.log(e)
                                         })
+                                        persist.addCredential(JSON.parse(res['d'])["data"]["i"], res['d'])
                                     }).catch(e => {
                                         console.log(e)
                                     })

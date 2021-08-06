@@ -64,6 +64,31 @@ class IssueCredential:
             }
 
 
+class RevokeCredential:
+    @staticmethod
+    def on_post(req, resp):
+        name = "controller"
+
+        with basing.openDB(name=name, temp=False, reload=True) as db, \
+                keeping.openKS(name=name, temp=False) as ks:
+            hab = habbing.Habitat(name=name, ks=ks, db=db, temp=False, create=False)
+
+        serder = exchanging.exchange(route="/cmd/credential/revoke", payload=dict(
+            said=req.media.get("id"),
+            regk="ETQoH02zJRCTNz-Wl3nnkUD_RVSzSwcoNvmfa18AWt3M",
+        ))
+
+        msg = hab.sanction(serder=serder)
+        ser = Serder(raw=msg)
+
+        resp.status = falcon.HTTP_200
+        resp.media = {
+            "d": json.dumps(serder.ked['d']),
+            "date": serder.ked['dt'],
+            "attachment": msg[ser.size:].decode("utf-8"),
+        }
+
+
 class PresentationRequest:
 
     @staticmethod
@@ -91,7 +116,7 @@ class PresentationRequest:
             resp.media = {
                 "data": json.dumps(ser.ked['d']),
                 "date": excSrdr.ked['dt'],
-                "attachment":  excMsg[ser.size:].decode("utf-8"),
+                "attachment": excMsg[ser.size:].decode("utf-8"),
             }
 
 
