@@ -28,6 +28,9 @@ class IssueCredential:
                 i="",
                 type=types,
                 LEI=req.media.get("LEI"),
+                si="EpXprWFWmvJx4dP7CqDyXRgoigTVFwEUh6i-6jUCcoU8",
+                credentialStatus="ETQoH02zJRCTNz-Wl3nnkUD_RVSzSwcoNvmfa18AWt3M",
+                issuanceDate=helping.nowIso8601()
             )
 
             d |= {"personLegalName": req.media.get("personLegalName")} \
@@ -40,9 +43,14 @@ class IssueCredential:
             saider = scheming.Saider(sed=d, code=coring.MtrDex.Blake3_256, idder=scheming.Ids.i)
             d["i"] = saider.qb64
 
-            cred = proving.credential(schema=schema,
-                                      issuer="EUX0_NKihYcmvuTOSFnLcIf4xhAn0MaAI2FJoCN-gspc",
+            ref = scheming.jsonSchemaCache.resolve(schema)
+            schemer = scheming.Schemer(raw=ref)
+            jsonSchema = scheming.JSONSchema(resolver=scheming.jsonSchemaCache)
+
+            cred = proving.credential(issuer="EUX0_NKihYcmvuTOSFnLcIf4xhAn0MaAI2FJoCN-gspc",
+                                      schema=schemer.said,
                                       subject=d,
+                                      typ=jsonSchema,
                                       source=source)
 
             print(cred.pretty())
@@ -58,7 +66,7 @@ class IssueCredential:
 
             resp.status = falcon.HTTP_200
             resp.media = {
-                "pre": cred.said,
+                "said": cred.said,
                 "d": serder.ked['d'],
                 "date": serder.ked['dt'],
                 "attachment": msg[ser.size:].decode("utf-8"),

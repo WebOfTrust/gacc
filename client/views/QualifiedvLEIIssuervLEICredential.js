@@ -42,11 +42,11 @@ let QualifiedvLEIIssuervLEICredential = {
                                                 "CESR-ATTACHMENT": res['attachment'],
                                                 "Content-Type": "application/cesr+json"
                                             },
-                                            "body": JSON.parse(res['d'])
+                                            "body": res['d']
                                         }).catch(e => {
                                             console.log(e)
                                         })
-                                        persist.addCredential(JSON.parse(res['d'])["data"]["i"], res)
+                                        persist.addCredential(res['said'], JSON.stringify(res))
                                     }).catch(e => {
                                         console.log(e)
                                     })

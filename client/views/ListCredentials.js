@@ -13,9 +13,9 @@ let Credential = {
                     m.request({
                         "method": "POST",
                         "url": GACC_SERVER_URL + "/revoke/credential",
-                        "body": {"said": cred["d"]["data"]["i"]}
+                        "body": {"said": cred['said']}
                     }).then(res => {
-                        persist.removeCredential(cred["pre"])
+                        persist.removeCredential(cred["said"])
                         // noinspection JSUnresolvedVariable
                         m.request({
                             "method": "POST",
@@ -35,7 +35,7 @@ let Credential = {
                 }
             }, "Revoke"),
             m("div", [m("span", m("b", "To: ")), m("span", cred["d"]["recipient"])]),
-            m("div", [m("span", m("b", "Credential: ")), m("span", cred["d"]["data"]["i"])]),
+            m("div", [m("span", m("b", "Credential: ")), m("span", cred["said"])]),
             m("br"),
             m("div", [m("span", m("b", "LEI: ")), m("span", cred["d"]["data"]["LEI"])]),
             m("div", [m("span", m("b", "Type: ")), m("span", cred["d"]["data"]["type"][1])]),
