@@ -15,7 +15,6 @@ let Credential = {
                         "url": GACC_SERVER_URL + "/revoke/credential",
                         "body": {"said": cred['said']}
                     }).then(res => {
-                        persist.removeCredential(cred["said"])
                         // noinspection JSUnresolvedVariable
                         m.request({
                             "method": "POST",
@@ -26,6 +25,15 @@ let Credential = {
                                 "Content-Type": "application/cesr+json"
                             },
                             "body": res['d']
+                        }).then(function () {
+                            persist.removeCredential(cred["said"])
+                            creds = []
+                            Object.keys(localStorage).filter(function (key) {
+                                return key.indexOf("credential.") >= 0;
+                            }).map(function (key) {
+                                creds.unshift(localStorage.getItem(key));
+                            });
+                            m.redraw()
                         }).catch(e => {
                             console.log(e);
                         })
