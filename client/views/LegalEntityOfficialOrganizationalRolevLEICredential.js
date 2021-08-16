@@ -1,4 +1,5 @@
 let m = require("mithril");
+const persist = require("../helpers/local_storage");
 
 let personLegalName = "";
 let officialRole = "";
@@ -68,10 +69,11 @@ let LegalEntityOfficialOrganizationalRolevLEICredential = {
                                                 "CESR-ATTACHMENT": res['attachment'],
                                                 "Content-Type": "application/cesr+json"
                                             },
-                                            "body": JSON.parse(res['d'])
+                                            "body": res['d']
                                         }).catch(e => {
                                             console.log(e)
                                         })
+                                        persist.addCredential(res['said'], JSON.stringify(res))
                                     }).catch(e => {
                                         console.log(e)
                                     })

@@ -1,6 +1,7 @@
 import m from 'mithril';
 
 let Issue = require('./views/Issue')
+let Revoke = require('./views/Revoke')
 let Verify = require('./views/Verify')
 
 let root = document.body;
@@ -16,6 +17,9 @@ let Layout = {
                 [
                     m(m.route.Link, {"class": "w3-bar-item w3-button", "href": "issue"},
                         "Issue"
+                    ),
+                    m(m.route.Link, {"class": "w3-bar-item w3-button", "href": "revoke"},
+                        "Revoke"
                     ),
                     m(m.route.Link, {"class": "w3-bar-item w3-button", "href": "verify"},
                         "Verify"
@@ -38,6 +42,11 @@ m.route(root, "/issue", {
     "/issue": {
         render: vnode => {
             return m(Layout, m(Issue, vnode.attrs))
+        }
+    },
+    "/revoke": {
+        render: vnode => {
+            return m(Layout, m(Revoke, vnode.attrs))
         }
     },
     "/verify": {
