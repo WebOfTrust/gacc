@@ -11,13 +11,12 @@ let Mailbox = {
         let ked = JSON.parse(evt)
         let d = ked["d"]
 
-        console.log(d["vc"]["vc"])
-        msgs.unshift(d["vc"]["vc"])
+        console.log(d["vc"])
+        msgs.unshift(d["vc"])
         m.redraw()
     },
     oncreate: function () {
         // noinspection JSUnresolvedVariable
-        console.log(source.readyState)
         source.addEventListener('data', this.displayData, false);
     },
     oninit: function () {
@@ -30,7 +29,7 @@ let Mailbox = {
                 m("h5", "Mailbox")
             ]),
             m("div", {"class": "w3-container"}, msgs.map(msg => {
-                if(msg.d.type[1] === "LegalEntityEngagementContextRolevLEICredential") {
+                if (msg.d.type[1] === "LegalEntityEngagementContextRolevLEICredential") {
                     return m("div", {"class": "w3-card w3-padding w3-margin"}, [
                         m("div", [m("span", m("h3", "Proof Received"))]),
                         m("div", [m("span", m("b", "From: ")), m("span", msg.ti)]),
@@ -43,7 +42,7 @@ let Mailbox = {
                         m("div", [m("span", m("b", "Type: ")), m("span", msg.d.type[1])]),
                     ])
 
-                } else if(msg.d.type[1] === "LegalEntityOfficialOrganizationalRolevLEICredential") {
+                } else if (msg.d.type[1] === "LegalEntityOfficialOrganizationalRolevLEICredential") {
                     return m("div", {"class": "w3-card w3-padding w3-margin"}, [
                         m("div", [m("span", m("h3", "Proof Received"))]),
                         m("div", [m("span", m("b", "From: ")), m("span", msg.ti)]),
@@ -75,7 +74,7 @@ let Mailbox = {
 let MINSNIFFSIZE = 30;
 
 let sniff = (raw) => {
-    let [major, minor, kind, size] = '';
+    let size = '';
     if (raw.length < MINSNIFFSIZE) {
         throw new Error('"Need more bytes."');
     }
