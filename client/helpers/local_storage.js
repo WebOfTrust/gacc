@@ -5,7 +5,6 @@ let credential = {
         }
     },
     removeCredential: function (id) {
-        console.log("poop")
         if (localStorage !== undefined) {
             localStorage.removeItem("credential." + id)
         }
