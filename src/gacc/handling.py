@@ -29,8 +29,7 @@ class IssueCredential:
                 type=types,
                 LEI=req.media.get("LEI"),
                 si="EpXprWFWmvJx4dP7CqDyXRgoigTVFwEUh6i-6jUCcoU8",
-                credentialStatus="ETQoH02zJRCTNz-Wl3nnkUD_RVSzSwcoNvmfa18AWt3M",
-                issuanceDate=helping.nowIso8601()
+                dt=helping.nowIso8601()
             )
 
             d |= {"personLegalName": req.media.get("personLegalName")} \
@@ -51,7 +50,8 @@ class IssueCredential:
                                       schema=schemer.said,
                                       subject=d,
                                       typ=jsonSchema,
-                                      source=source)
+                                      source=source,
+                                      status="ETQoH02zJRCTNz-Wl3nnkUD_RVSzSwcoNvmfa18AWt3M",)
 
             print(cred.pretty())
 

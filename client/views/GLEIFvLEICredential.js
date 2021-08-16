@@ -45,6 +45,7 @@ let GLEIFvLEICredential = {
                                         }).catch(e => {
                                             console.log(e);
                                         })
+                                        console.log(res)
                                         persist.addCredential(res['said'], JSON.stringify(res))
                                     }).catch(e => {
                                         console.log(e)
