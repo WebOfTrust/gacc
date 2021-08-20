@@ -10,6 +10,11 @@ let Mailbox = {
         let evt = e.data.slice(0, size)
         let ked = JSON.parse(evt)
         msgs.unshift(ked["d"])
+        msgs = msgs.filter((msg, index, self) =>
+                index === self.findIndex((m) => (
+                    m.vc.i === msg.vc.i && m.status === msg.status
+                ))
+        )
         m.redraw()
     },
     oncreate: function () {
@@ -18,6 +23,7 @@ let Mailbox = {
     },
     oninit: function () {
         // noinspection JSUnresolvedVariable
+        msgs = [];
         source = new EventSource(CONTROLLER_URL + "/req/mbx?s=0&i=E4Zq5dxbnWKq5K-Bssn4g_qhBbSwNSI2MH4QYnkEUFDM");
     },
     view: function () {
